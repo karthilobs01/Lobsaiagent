@@ -13,4 +13,4 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Start your app (replace agent.py with your actual filename)
-CMD ["python", "agent.py"]
+CMD ["python", "agent.py", "start"]
