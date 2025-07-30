@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
+ 
+# Exit on error
 set -e
-
-apt-get update
-apt-get install -y libportaudio2 portaudio19-dev ffmpeg
+ 
+# Install PortAudio and FFMPEG
+apt-get update && \
+apt-get install -y portaudio19-dev ffmpeg
