@@ -44,6 +44,7 @@ async def entrypoint(ctx: agents.JobContext):
             # - For telephony applications, use `BVCTelephony` for best results
             video_enabled=True,
             noise_cancellation=noise_cancellation.BVC(),
+            microphone_enabled=False,
         ),
     )
 
