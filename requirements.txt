@@ -10,4 +10,3 @@ requests
 python-dotenv
 sounddevice
 pipwin
-pyaudio
