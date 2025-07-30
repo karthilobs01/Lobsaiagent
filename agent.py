@@ -2,14 +2,12 @@ from dotenv import load_dotenv
 
 from livekit import agents
 from livekit.agents import AgentSession, Agent, RoomInputOptions
-from livekit.plugins import (
-    noise_cancellation,
-)
+from livekit.plugins import noise_cancellation
 from livekit.plugins import google
 from prompts import AGENT_INSTRUCTION, SESSION_INSTRUCTION
 from tools import get_weather, search_web, send_email
-load_dotenv()
 
+load_dotenv()
 
 
 class Assistant(Agent):
@@ -17,34 +15,27 @@ class Assistant(Agent):
         super().__init__(
             instructions=AGENT_INSTRUCTION,
             llm=google.beta.realtime.RealtimeModel(
-            voice="Charon",
-            temperature=0.7,
-        ),
+                voice="Charon",
+                temperature=0.7,
+            ),
             tools=[
                 get_weather,
                 search_web,
                 send_email
             ],
-
         )
-        
 
 
 async def entrypoint(ctx: agents.JobContext):
-    session = AgentSession(
-        
-    )
+    session = AgentSession()
 
     await session.start(
         room=ctx.room,
         agent=Assistant(),
         room_input_options=RoomInputOptions(
-            # LiveKit Cloud enhanced noise cancellation
-            # - If self-hosting, omit this parameter
-            # - For telephony applications, use `BVCTelephony` for best results
             video_enabled=True,
             noise_cancellation=noise_cancellation.BVC(),
-            microphone_enabled=False,
+            audio_device_enabled=False  # ✅ This disables mic input and prevents PortAudio errors
         ),
     )
 
